@@ -1,0 +1,113 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Solicitud de préstamo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div class="container">
+		<h1>Solicitud de préstamo</h1>
+		<form action="javascript:submit()">
+			<label for="nombre">Nombre:</label>
+			<input type="text" id="name" name="name" required>
+			<label for="apellidos">Apellidos:</label>
+			<input type="text" id="surname" name="surname" required>
+			<label for="direccion">Edad:</label>
+			<input type="text" id="age" name="age" required>
+			<label for="email">Correo electrónico:</label>
+			<input type="email" id="email" name="email" required>
+			<label for="telefono">Teléfono:</label>
+			<input type="tel" id="phone" name="phone" required>
+			<label for="loan_amount">Importe Préstamo:</label>
+			<input type="number" step="any" min="11" max="1000" id="loan_amount" name="loan_amount" required>
+			<label for="loan_date">Fecha a conseguir el préstamo:</label>
+			<input type="date"   id="loan_date" name="loan_date" required>
+			<label for="loan_years">Tiempo a devoler en años:</label>
+			<input type="number"  step="5" min="5" id="loan_years" name="loan_years" required>
+			<label for="loan_terms">Aceptar térnimos y condiciones:</label>
+			<input type="checkbox" id="loan_terms" name="loan_terms" required>
+
+			<button type="submit" id="submit-btn">Enviar solicitud</button>
+		</form>
+		<div id="response"></div>
+	</div>
+	<script src="main.js"></script>
+	<img src="./logo-main.png" alt="Mi logo" class="logo">
+
+	<script>
+
+		function submit() {
+
+			let data = { 
+				"name": document.getElementById("name").value,
+				"surname": document.getElementById("surname").value,
+				"email": document.getElementById("email").value,
+				"phone": document.getElementById("phone").value, 
+				"age": document.getElementById("age").value,
+				"loan_amount":document.getElementById("loan_amount").value,
+				"loan_date":document.getElementById("loan_date").value,
+				"loan_years":document.getElementById("loan_years").value,
+				"loan_terms":document.getElementById("loan_terms").checked
+			}
+			fetch("https://api.helloteca.com/public/recruitment/users/1", {
+				method: "put",
+				headers: {
+					"X-WEB-KEY": "recruitment2023",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data)
+			}).then((response) => response.json())
+				.then((data) => {
+					alert("Solicitud enviada")
+					console.log("Success:", data);
+				})
+				.catch((error) => {
+					alert("Error")
+					console.error("Error:", error);
+				});
+		}
+		function start() {
+			let url = window.location.href // ej.: http://localhost:5500/index.html?id=433
+			let urlObjeto = new URL(window.location.href);
+			let id = urlObjeto.searchParams.get("id") // 1 
+			console.log(id);
+			fetch("https://api.helloteca.com/public/recruitment/users?id=" + id, {
+				method: "get",
+				headers: {
+					"X-WEB-KEY": "recruitment2023",
+					"Content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((response) => {
+					console.log(response); 
+					document.getElementById("name").value = response.data.name
+					document.getElementById("surname").value = response.data.surname
+					document.getElementById("phone").value = response.data.phone
+					document.getElementById("email").value = response.data.email
+					document.getElementById("age").value = response.data.age
+
+					// document.getElementById("nombre").value = response.data.name
+				})
+				.catch((error) => {
+					alert("Usuario no encontrado")
+					console.error("Error:", error);
+				});
+
+			//date
+			let yourDate = new Date() 
+			document.getElementById("loan_date").setAttribute("min",yourDate.toISOString().split('T')[0] )
+
+
+		}
+		start()
+
+	</script>
+</body>
+
+</html>

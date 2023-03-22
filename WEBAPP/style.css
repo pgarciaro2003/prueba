@@ -1,0 +1,73 @@
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #C3F7FC;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: "Space Grotesk", Sans-serif; 
+    color:#5A4FA2; 
+  }
+  .logo{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 100px;
+  }
+  
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: "Space Grotesk", Sans-serif;
+    color: #5A4FA2;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-family: "Space Grotesk", Sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    
+    
+  }
+  
+  button[type="submit"] {
+    padding: 10px;
+    font-size: 18px;
+    font-family: "Space Grotesk", Sans-serif;
+    background-color: #5A4FA2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #5A4FA2;
+  }
+  
+  #error-msg {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
